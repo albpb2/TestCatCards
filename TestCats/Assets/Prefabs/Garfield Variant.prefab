@@ -37,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 158.4854
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 152.9154
+      value: 185.6925
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -73,11 +73,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.8986816
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.7584229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -108,8 +108,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
+      propertyPath: _attacks.Array.data[0].AttackName
+      value: Pedir pizza
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: _attacks.Array.data[0].AttackType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
+      propertyPath: _attacks.Array.data[1].AttackName
+      value: Ronronear
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: _attacks.Array.data[1].AttackType
@@ -125,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927325, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_Name
-      value: Garfield
+      value: Garfield Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487430756275, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_text
@@ -141,3 +149,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
+--- !u!1 &4442801564226157413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5904481487372927325, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
+  m_PrefabInstance: {fileID: 7807252578252896824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7466185083716395047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442801564226157413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa37c6bb0fd301c45b90beb68ae21c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxDamagePointsTaken: 5
+  _typesImpacted: 00000000

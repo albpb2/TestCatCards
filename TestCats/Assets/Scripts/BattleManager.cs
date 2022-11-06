@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
     [SerializeField] private BattlePlayer _player;
     [SerializeField] private BattlePlayer _enemy;
     [SerializeField] private TMP_Text _turnOutcomeTmPro;
+    [SerializeField] private GameObject _gameOverPanel;
 
     private BattleCat _selectedPlayerCard;
     private Attack _selectedPlayerAttack;
+
+    private string _turnOutcomeText;
 
     public void SelectPlayerAttack(BattleCat cat, Attack attack)
     {
@@ -25,79 +27,64 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
+        ClearOutcomeText();
         EvaluateTurn();
-        _selectedPlayerAttack = null;
+        ApplyAlteredStates();
+        PrintOutcomeText();
+        FinishGameIfAnyPlayerIsDead();
     }
-
-    private static Dictionary<CatType, Dictionary<CatType, float>> _damageMultipliers =
-        new Dictionary<CatType, Dictionary<CatType, float>>
-        {
-            [CatType.Aggresive] = new Dictionary<CatType, float>
-            {
-                [CatType.Calm] = 2,
-                [CatType.Tender] = .5f,
-            },
-            [CatType.Calm] = new Dictionary<CatType, float>
-            {
-                [CatType.Aggresive] = .5f,
-                [CatType.Agile] = .5f,
-                [CatType.Fearful] = 2,
-                [CatType.Tender] = 2,
-            },
-            [CatType.Agile] = new Dictionary<CatType, float>
-            {
-                [CatType.Calm] = 2,
-                [CatType.Fearful] = .5f,
-                [CatType.Tender] = .5f,
-            },
-            [CatType.Fearful] = new Dictionary<CatType, float>
-            {
-                [CatType.Calm] = .5f,
-                [CatType.Agile] = 2,
-                [CatType.Fearful] = 0,
-                [CatType.Tender] = 2,
-            },
-            [CatType.Tender] = new Dictionary<CatType, float>
-            {
-                [CatType.Aggresive] = 2,
-                [CatType.Calm] = .5f,
-                [CatType.Agile] = 2,
-                [CatType.Fearful] = .5f,
-            },
-        };
 
     private void EvaluateTurn()
     {
         var (enemyCard, enemyAttack) = _enemy.DrawRandomAttack();
 
-        var damageToEnemy = CalculateDamage(_selectedPlayerAttack, enemyCard);
-        var damageToPlayer = CalculateDamage(enemyAttack, _selectedPlayerCard);
-
-        _enemy.ApplyDamage(damageToEnemy);
-        _player.ApplyDamage(damageToPlayer);
-
-        var playerMultiplier = CalculateMultiplier(_selectedPlayerAttack, enemyCard);
-        var enemyMultiplier = CalculateMultiplier(enemyAttack, _selectedPlayerCard);
-        var outcomeText = $"Player used {_selectedPlayerCard.Name} with attack {_selectedPlayerAttack.AttackType} ({_selectedPlayerAttack.DamagePoints}) vs {enemyCard.Type} (multi: {playerMultiplier}){Environment.NewLine}";
-        outcomeText += $"Enemy received {damageToEnemy} damage poitns. HP: {_enemy.HP}{Environment.NewLine}{Environment.NewLine}";
-        outcomeText += $"Enemy used {enemyCard.Name} with attack {enemyAttack.AttackType} ({enemyAttack.DamagePoints}) vs {_selectedPlayerCard.Type} (multi: {enemyMultiplier}){Environment.NewLine}";
-        outcomeText += $"Player received {damageToPlayer} damage poitns. HP: {_player.HP}";
-        _turnOutcomeTmPro.text = outcomeText;
+        _selectedPlayerCard.GetComponent<BasicBattleBehaviour>().Attack(_selectedPlayerAttack, enemyCard, _enemy);
+        enemyCard.GetComponent<BasicBattleBehaviour>().Attack(enemyAttack, _selectedPlayerCard, _player);
 
         _selectedPlayerCard.GetComponent<PlayerCatCard>().UseCard();
         enemyCard.GetComponent<PlayerCatCard>().UseCard();
+
+        _selectedPlayerCard = null;
+        _selectedPlayerAttack = null;
     }
 
-    private static float CalculateDamage(Attack attack, BattleCat defendingCat) 
-        => attack.DamagePoints * CalculateMultiplier(attack, defendingCat);
-
-    private static float CalculateMultiplier(Attack attack, BattleCat defendingCat)
+    private void ApplyAlteredStates()
     {
-        var multipliers = _damageMultipliers[attack.AttackType];
-        if (!multipliers.TryGetValue(defendingCat.Type, out var multiplier))
+        _player.ApplyAlteredStates();
+        _enemy.ApplyAlteredStates();
+    }
+
+    public void ClearOutcomeText()
+    {
+        _turnOutcomeText = string.Empty;
+        _turnOutcomeTmPro.text = string.Empty;
+    }
+
+    public void LogAttackOutcome(string outcomeText)
+    {
+        _turnOutcomeText += outcomeText;
+    }
+
+    public void PrintOutcomeText()
+    {
+        _turnOutcomeTmPro.text = _turnOutcomeText;
+    }
+
+    private void FinishGameIfAnyPlayerIsDead()
+    {
+        if (_player.HP <= 0 || _enemy.HP <= 0)
         {
-            multiplier = 1;
+            FinishGame();
         }
-        return multiplier;
+    }
+
+    public void FinishGame()
+    {
+        _gameOverPanel.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

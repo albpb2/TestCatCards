@@ -6,6 +6,7 @@ public class PlayerCatCard : MonoBehaviour
 {
     [SerializeField] private TMP_Text _nameTmPro;
     [SerializeField] private TMP_Text _typeTmPro;
+    [SerializeField] private TMP_Text _skillTmPro;
     [SerializeField] private Button _attack1Button;
     [SerializeField] private Button _attack2Button;
 
@@ -24,26 +25,31 @@ public class PlayerCatCard : MonoBehaviour
     {
         _catCard = GetComponent<BattleCat>();
         _image = GetComponent<Image>();
-    }
 
-    private void Start()
-    {
-        _battleManager = FindObjectOfType<BattleManager>();
+        if (!TryGetComponent<BasicBattleBehaviour>(out var _))
+        {
+            gameObject.AddComponent(typeof(BasicBattleBehaviour));
+        }
 
         _nameTmPro.text = _catCard.Name;
         _typeTmPro.text = _catCard.Type.ToString();
 
-        _attack1Button.GetComponentInChildren<TMP_Text>().text = $"{_catCard.Attacks[0].AttackType}: {_catCard.Attacks[0].DamagePoints}";
+        _attack1Button.GetComponentInChildren<TMP_Text>().text = $"{_catCard.Attacks[0]}";
         _attack1Button.interactable = false;
         if (_catCard.Attacks.Length > 1)
         {
-            _attack2Button.GetComponentInChildren<TMP_Text>().text = $"{_catCard.Attacks[1].AttackType}: {_catCard.Attacks[1].DamagePoints}";
+            _attack2Button.GetComponentInChildren<TMP_Text>().text = $"{_catCard.Attacks[1]}";
             _attack2Button.interactable = false;
         }
         else
         {
             _attack2Button.gameObject.SetActive(false);
         }
+    }
+
+    private void Start()
+    {
+        _battleManager = FindObjectOfType<BattleManager>();
     }
 
     private void OnDestroy()
@@ -108,5 +114,10 @@ public class PlayerCatCard : MonoBehaviour
             default: break;
         }
         Debug.Log($"Selected {_catCard.Name} {_catCard.Attacks[attackIndex].AttackType} attack");
+    }
+
+    public void PrintSkillText(string text)
+    {
+        _skillTmPro.text = text;
     }
 }

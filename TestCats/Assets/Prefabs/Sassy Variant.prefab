@@ -37,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 158.4854
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 152.9154
+      value: 185.6925
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -73,11 +73,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 356.10132
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.7584229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927322, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -108,6 +108,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
+      propertyPath: _attacks.Array.data[0].AttackName
+      value: "P\xE1nico"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904481487372927323, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: _attacks.Array.data[0].AttackType
       value: 3
       objectReference: {fileID: 0}
@@ -117,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487372927325, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_Name
-      value: Sassy
+      value: Sassy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5904481487430756275, guid: 8ac0d6dd98ee74d4080539bcc325f2ef, type: 3}
       propertyPath: m_text
